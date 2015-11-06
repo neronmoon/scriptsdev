@@ -2,17 +2,17 @@
   "name": "neronmoon/scriptsdev",
   "type": "composer-plugin",
   "autoload": {
-	"psr-0": {
-	  "": "src/"
-	}
+    "psr-0": {
+      "": "src/"
+    }
   },
   "require": {
-	"composer-plugin-api": "^1.0"
+    "composer-plugin-api": "^1.0"
   },
   "require-dev": {
-	"composer/composer": "~1.0@dev"
+    "composer/composer": "~1.0@dev"
   },
   "extra": {
-	"class": "\\Plugin"
+    "class": "\\Plugin"
   }
 }
