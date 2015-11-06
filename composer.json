@@ -1,6 +1,16 @@
 {
   "name": "neronmoon/scriptsdev",
+  "description": "Scripts-dev behaviour for Composer",
+  "keywords": ["dev", "scripts", "composer", "commands", "commands execution"],
+  "homepage": "https://github.com/neronmoon/scriptsdev",
   "type": "composer-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vitaliy Krasnoperov",
+      "email": "alistar.neron@gmail.com"
+    }
+  ],
   "autoload": {
     "psr-0": {
       "": "src/"
