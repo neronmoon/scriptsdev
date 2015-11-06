@@ -4,11 +4,11 @@ It's like require-dev, but for scripts
 Add require string to composer.json
 
 ```json
+...
 "require-dev": {
-	...
 	"neronmoon/scriptsdev": "master",
-	...
 }
+...
 ```
 And run update
 ```shell
