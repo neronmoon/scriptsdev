@@ -6,7 +6,7 @@ Add require string to composer.json
 ```json
 ...
 "require-dev": {
-	"neronmoon/scriptsdev": "master",
+	"neronmoon/scriptsdev": "dev-master",
 }
 ...
 ```
