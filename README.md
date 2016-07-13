@@ -1,19 +1,8 @@
 # scriptsdev for [Composer](https://github.com/composer/composer)
 It's like require-dev, but for scripts
 ## Installation 
-Add require string to composer.json
+Just run `composer require neronmoon/scriptsdev --dev`
 
-```json
-...
-"require-dev": {
-	"neronmoon/scriptsdev": "dev-master",
-}
-...
-```
-And run update
-```shell
-$ composer update neronmoon/scriptsdev
-```
 ## Usage
 After installing you able to add scripts-dev directive in your ```composer.json```
 ```json
