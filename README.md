@@ -7,11 +7,13 @@ Just run `composer require neronmoon/scriptsdev --dev`
 After installing you able to add scripts-dev directive in your ```composer.json```
 ```json
 ...
-"scripts-dev": {
-	"post-install-cmd": [
-		"npm install --dev"
-	],
-	"post-update-cmd": "php ./someCoolCommand.php"
-},
+"extra": {
+    "scripts-dev": {
+        "post-install-cmd": [
+            "npm install --dev"
+        ],
+        "post-update-cmd": "php ./someCoolCommand.php"
+    },
+}
 ...
 ```

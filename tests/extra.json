@@ -1,9 +1,9 @@
 {
-  "name": "neronmoon/scriptsdev",
+  "name": "neronmoon/scriptsdev-test",
   "description": "Scripts-dev behaviour for Composer",
   "keywords": ["dev", "scripts", "composer", "commands", "commands execution"],
   "homepage": "https://github.com/neronmoon/scriptsdev",
-  "type": "composer-plugin",
+  "type": "project",
   "license": "MIT",
   "authors": [
     {
@@ -11,18 +11,18 @@
       "email": "alistar.neron@gmail.com"
     }
   ],
-  "autoload": {
-    "psr-4": {
-      "ScriptsDev\\": "src/"
+  "repositories": [
+    {
+      "type": "path",
+      "url": "<PLUGIN_PATH>"
     }
-  },
+  ],
   "require": {
-    "composer-plugin-api": "^1.0"
-  },
-  "require-dev": {
-    "composer/composer": "~1.0@dev"
+    "neronmoon/scriptsdev": "*@dev"
   },
   "extra": {
-    "class": "ScriptsDev\\Plugin"
+    "scripts-dev": {
+      "post-update-cmd": "echo SCRIPTSDEV RULEZ"
+    }
   }
 }
