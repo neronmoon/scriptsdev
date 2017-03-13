@@ -8,5 +8,4 @@ php:
   - hhvm
   - nightly
 
-install: pip install subprocess
 script: python tests.py
