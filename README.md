@@ -1,10 +1,10 @@
-# scriptsdev for [Composer](https://github.com/composer/composer)
+# scriptsdev for [Composer](https://github.com/composer/composer) ![Build status](https://travis-ci.org/neronmoon/scriptsdev.svg?branch=master)
 It's like require-dev, but for scripts
 ## Installation 
 Just run `composer require neronmoon/scriptsdev --dev`
 
 ## Usage
-After installing you able to add scripts-dev directive in your ```composer.json```
+After installing you able to add extra.scripts-dev directive in your `composer.json`
 ```json
 ...
 "extra": {
@@ -14,6 +14,18 @@ After installing you able to add scripts-dev directive in your ```composer.json`
         ],
         "post-update-cmd": "php ./someCoolCommand.php"
     },
+}
+...
+```
+
+## Deprecated Usage
+```json
+...
+"scripts-dev": {
+    "post-install-cmd": [
+        "npm install --dev"
+    ],
+    "post-update-cmd": "php ./someCoolCommand.php"
 }
 ...
 ```
