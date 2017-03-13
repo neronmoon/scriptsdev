@@ -21,21 +21,20 @@ class Plugin implements PluginInterface
 			$io->writeError("You're using deprecated way to define development-only scripts. 
 Please, move commands under `scripts-dev` directive into `extra` field.
 See README.md for more details.");
-			foreach ($config['scripts-dev'] as $event => $listeners) {
-				$devScripts[$event] = (array) $listeners;
-			}
+			$devScripts = array_merge_recursive($devScripts, $config['scripts-dev']);
 		}
 
 		$package = $composer->getPackage();
 
 		$extra = $package->getExtra();
 		if (isset($extra['scripts-dev']) && is_array($extra['scripts-dev'])) {
-			foreach ($extra['scripts-dev'] as $event => $listeners) {
-				$devScripts[$event] = (array) $listeners;
-			}
+			$devScripts = array_merge_recursive($devScripts, $extra['scripts-dev']);
 		}
 
 		if ($package instanceof CompletePackage) {
+			foreach ($devScripts as $event => &$listeners) {
+				$listeners = (array) $listeners;
+			}
 			$package->setScripts(array_merge_recursive($package->getScripts(), $devScripts));
 		}
 	}
