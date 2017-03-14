@@ -8,4 +8,4 @@ php:
   - hhvm
   - nightly
 
-script: python tests.py
+script: python tests/tests.py
