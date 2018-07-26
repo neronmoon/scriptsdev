@@ -4,6 +4,7 @@ namespace ScriptsDev;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;
+use Composer\Package\AliasPackage;
 use Composer\Package\CompletePackage;
 use Composer\Plugin\PluginInterface;
 
@@ -12,6 +13,11 @@ class Plugin implements PluginInterface
 	public function activate(Composer $composer, IOInterface $io)
 	{
 		$package = $composer->getPackage();
+
+		// If we have extra.branch-alias, package will be an instanceof RootAliasPackage instead of RootPackage
+		if ($package instanceof AliasPackage) {
+            $package = $package->getAliasOf();
+        }
 
 		if ($package instanceof CompletePackage && in_array('--no-dev', $_SERVER['argv'], true)) {
 			return;
@@ -34,6 +40,7 @@ See README.md for more details.");
 		foreach ($devScripts as $event => &$listeners) {
 			$listeners = (array)$listeners;
 		}
-		$package->setScripts(array_merge_recursive($package->getScripts(), $devScripts));
+
+        $package->setScripts(array_merge_recursive($package->getScripts(), $devScripts));
 	}
 }

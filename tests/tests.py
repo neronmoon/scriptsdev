@@ -3,6 +3,8 @@ import os
 
 
 def test(test, args=[], cmd=['composer', 'update', '-v'], clean_dir=True):
+    print "Testing:", test
+
     working_dir = '/tmp/scriptsdev/' + test
 
     if clean_dir:
@@ -37,6 +39,9 @@ def check_not(expect_not, actual):
 
 check('SCRIPTSDEV RULEZ', test('extra'))
 check_not('SCRIPTSDEV RULEZ', test('extra', ['--no-dev']))
+
+check('SCRIPTSDEV RULEZ', test('extra-with-branch-alias'))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['--no-dev']))
 
 check('SCRIPTSDEV RULEZ', test('legacy'))
 check_not('SCRIPTSDEV RULEZ', test('legacy', ['--no-dev']))
