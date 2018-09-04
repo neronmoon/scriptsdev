@@ -1,28 +1,37 @@
 {
-  "name": "neronmoon/scriptsdev",
-  "description": "Scripts-dev behaviour for Composer",
-  "keywords": ["dev", "scripts", "composer", "commands", "commands execution"],
-  "homepage": "https://github.com/neronmoon/scriptsdev",
-  "type": "composer-plugin",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Vitaliy Krasnoperov",
-      "email": "alistar.neron@gmail.com"
+    "name": "neronmoon/scriptsdev",
+    "description": "Scripts-dev behaviour for Composer",
+    "keywords": [
+        "dev",
+        "scripts",
+        "composer",
+        "commands",
+        "commands execution"
+    ],
+    "homepage": "https://github.com/neronmoon/scriptsdev",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vitaliy Krasnoperov",
+            "email": "alistar.neron@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ScriptsDev\\": "src/"
+        }
+    },
+    "require": {
+        "composer-plugin-api": "^1.0"
+    },
+    "require-dev": {
+        "composer/composer": "~1.0@dev"
+    },
+    "extra": {
+        "class": "ScriptsDev\\Plugin"
+    },
+    "scripts": {
+        "test": "python tests/tests.py"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "ScriptsDev\\": "src/"
-    }
-  },
-  "require": {
-    "composer-plugin-api": "^1.0"
-  },
-  "require-dev": {
-    "composer/composer": "~1.0@dev"
-  },
-  "extra": {
-    "class": "ScriptsDev\\Plugin"
-  }
 }

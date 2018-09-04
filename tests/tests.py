@@ -2,14 +2,13 @@ from subprocess import check_output, check_call
 import os
 
 
-def test(test, args=[], cmd=['composer', 'update', '-v'], clean_dir=True):
-    print "Testing:", test
+def test(test, args=[], cmd=['composer', 'update', '-v']):
+    print "Testing:", test, args, cmd,
 
     working_dir = '/tmp/scriptsdev/' + test
 
-    if clean_dir:
-        check_call(['rm', '-rf', working_dir])
-        check_call(['mkdir', '-p', working_dir])
+    check_call(['rm', '-rf', working_dir])
+    check_call(['mkdir', '-p', working_dir])
 
     source_composer_json = open('tests/%s.json' % test, 'r').read()
     source_composer_json = source_composer_json.replace('<PLUGIN_PATH>', os.getcwd())
@@ -22,17 +21,17 @@ def test(test, args=[], cmd=['composer', 'update', '-v'], clean_dir=True):
 
 
 def check(expect, actual):
-    print "expect: ", expect
-    print "actual: ", actual
     if not expect in actual:
         raise Exception('EXPECTED\n"%s"\nBUT FOUND\n"%s"' % (expect, actual))
+    else:
+        print 'OK'
 
 
 def check_not(expect_not, actual):
-    print "expect not: ", expect_not
-    print "actual: ", actual
     if expect_not in actual:
         raise Exception('EXPECTED\n"%s"\nBUT FOUND\n"%s"' % (expect_not, actual))
+    else:
+        print 'OK'
 
 
 ############ TESTS HERE #############
@@ -49,5 +48,5 @@ check_not('SCRIPTSDEV RULEZ', test('legacy', ['--no-dev']))
 check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-update']))
 check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-update-no-dev']))
 
-check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install'], clean_dir=False))
-check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install-no-dev'], clean_dir=False))
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install']))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install-no-dev']))
