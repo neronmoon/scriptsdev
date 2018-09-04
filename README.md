@@ -1,6 +1,6 @@
-# scriptsdev for [Composer](https://github.com/composer/composer) ![Build status](https://travis-ci.org/neronmoon/scriptsdev.svg?branch=master)
+# scriptsdev for [Composer](https://github.com/composer/composer) [![Build Status](https://travis-ci.org/neronmoon/scriptsdev.svg?branch=master)](https://travis-ci.org/neronmoon/scriptsdev)
 It's like require-dev, but for scripts
-## Installation 
+## Installation
 Just run `composer require neronmoon/scriptsdev --dev`
 
 ## Usage
