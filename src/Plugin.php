@@ -6,14 +6,13 @@ use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
-use Composer\Plugin\Capability\CommandProvider;
 
 class Plugin implements PluginInterface, Capable
 {
     public function getCapabilities()
     {
         return array(
-            CommandProvider::class => DevScriptsCommandProvider::class,
+            'Composer\Plugin\Capability\CommandProvider' => 'ScriptsDev\DevScriptsCommandProvider',
         );
     }
 
