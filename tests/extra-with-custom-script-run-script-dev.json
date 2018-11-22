@@ -20,7 +20,9 @@
   "require": {
     "neronmoon/scriptsdev": "*@dev"
   },
-  "scripts-dev": {
-    "post-update-cmd": "echo SCRIPTSDEV RULEZ"
+  "extra": {
+    "scripts-dev": {
+      "test": "echo SCRIPTSDEV RULEZ"
+    }
   }
 }

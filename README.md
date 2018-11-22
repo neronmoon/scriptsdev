@@ -12,7 +12,8 @@ After installing you able to add extra.scripts-dev directive in your `composer.j
         "post-install-cmd": [
             "npm install --dev"
         ],
-        "post-update-cmd": "php ./someCoolCommand.php"
+        "post-update-cmd": "php ./someCoolCommand.php",
+        "test": "phpunit"
     },
 }
 ...

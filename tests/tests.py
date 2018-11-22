@@ -1,23 +1,32 @@
-from subprocess import check_output, check_call
 import os
+from subprocess import check_output, check_call
 
 
-def test(test, args=[], cmd=['composer', 'update', '-v']):
-    print "Testing:", test, args, cmd,
+def test(test, cmds):
+    print "Testing:", test, cmds,
 
     working_dir = '/tmp/scriptsdev/' + test
 
     check_call(['rm', '-rf', working_dir])
     check_call(['mkdir', '-p', working_dir])
 
-    source_composer_json = open('tests/%s.json' % test, 'r').read()
-    source_composer_json = source_composer_json.replace('<PLUGIN_PATH>', os.getcwd())
+    if isinstance(cmds[0], basestring):
+        cmds = [cmds]
 
-    target_composer_json = open(working_dir + '/composer.json', 'w')
-    target_composer_json.write(source_composer_json)
-    target_composer_json.close()
+    output = ''
+    for cmd in cmds:
+        source_composer_json = open('tests/%s.json' % test, 'r').read()
+        source_composer_json = source_composer_json.replace('<PLUGIN_PATH>', os.getcwd())
 
-    return check_output(cmd + args, cwd=working_dir)
+        target_composer_json = open(working_dir + '/composer.json', 'w')
+        target_composer_json.write(source_composer_json)
+        target_composer_json.close()
+
+        try:
+            output += check_output(cmd, cwd=working_dir)
+        except Exception, e:
+            output += str(e.output)
+    return output
 
 
 def check(expect, actual):
@@ -36,17 +45,47 @@ def check_not(expect_not, actual):
 
 ############ TESTS HERE #############
 
-check('SCRIPTSDEV RULEZ', test('extra'))
-check_not('SCRIPTSDEV RULEZ', test('extra', ['--no-dev']))
+check('SCRIPTSDEV RULEZ', test('legacy', ['composer', 'update']))
+check_not('SCRIPTSDEV RULEZ', test('legacy', ['composer', '--no-dev', 'update']))
 
-check('SCRIPTSDEV RULEZ', test('extra-with-branch-alias'))
-check_not('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['--no-dev']))
+check('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', 'run-script', 'test']]))
+check('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', '--dev', 'run-script', 'test']]))
+check_not('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', '--no-dev', 'run-script', 'test']]))
 
-check('SCRIPTSDEV RULEZ', test('legacy'))
-check_not('SCRIPTSDEV RULEZ', test('legacy', ['--no-dev']))
+check('SCRIPTSDEV RULEZ', test('extra', ['composer', 'update']))
+check_not('SCRIPTSDEV RULEZ', test('extra', ['composer', '--no-dev', 'update']))
 
-check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-update']))
-check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-update-no-dev']))
+check('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['composer', 'update']))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['composer', '--no-dev', 'update']))
 
-check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install']))
-check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', cmd=['composer', 'run-script', 'test-install-no-dev']))
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-update']))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-update-no-dev']))
+
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-install']))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-install-no-dev']))
+
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', 'run-script', 'test']]))
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', '--dev', 'run-script', 'test']]))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', '--no-dev', 'run-script', 'test']]))
+
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', 'test']]))
+check('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', '--dev', 'test']]))
+check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script-run-script-dev', [
+    ['composer', 'update'],
+    ['composer', '--no-dev', 'test']]))
