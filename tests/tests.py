@@ -45,14 +45,24 @@ def check_not(expect_not, actual):
 
 ############ TESTS HERE #############
 
+check('SCRIPTSDEV RULEZ', test('legacy', ['composer', 'update']))
+check_not('SCRIPTSDEV RULEZ', test('legacy', ['composer', '--no-dev', 'update']))
+
+check('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', 'run-script', 'test']]))
+check('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', '--dev', 'run-script', 'test']]))
+check_not('SCRIPTSDEV RULEZ', test('legacy-with-run-scripts-dev', [
+    ['composer', 'update'],
+    ['composer', '--no-dev', 'run-script', 'test']]))
+
 check('SCRIPTSDEV RULEZ', test('extra', ['composer', 'update']))
 check_not('SCRIPTSDEV RULEZ', test('extra', ['composer', '--no-dev', 'update']))
 
 check('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['composer', 'update']))
 check_not('SCRIPTSDEV RULEZ', test('extra-with-branch-alias', ['composer', '--no-dev', 'update']))
-
-check('SCRIPTSDEV RULEZ', test('legacy', ['composer', 'update']))
-check_not('SCRIPTSDEV RULEZ', test('legacy', ['composer', '--no-dev', 'update']))
 
 check('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-update']))
 check_not('SCRIPTSDEV RULEZ', test('extra-with-custom-script', ['composer', 'run-script', 'test-update-no-dev']))

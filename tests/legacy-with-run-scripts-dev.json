@@ -21,6 +21,6 @@
     "neronmoon/scriptsdev": "*@dev"
   },
   "scripts-dev": {
-    "post-update-cmd": "echo SCRIPTSDEV RULEZ"
+    "test": "echo SCRIPTSDEV RULEZ"
   }
 }

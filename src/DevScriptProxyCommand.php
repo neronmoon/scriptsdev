@@ -40,7 +40,6 @@ class DevScriptProxyCommand extends BaseCommand
             '--list' => $input->getOption('list'),
         );
 
-        var_dump($args);
         $command = $this->getApplication()->find('run-script');
 
         $arrayInput = new ArrayInput($args);

@@ -15,6 +15,8 @@ class PackageScriptsExtractor
      */
     private $io;
 
+    protected static $warningPrinted = false;
+
     public function __construct(IOInterface $io)
     {
         $this->io = $io;
@@ -38,11 +40,14 @@ class PackageScriptsExtractor
         $devScripts = array();
         $config = json_decode(file_get_contents(getcwd() . '/composer.json'), true);
         if (isset($config['scripts-dev']) && is_array($config['scripts-dev'])) {
-            $this->io->writeError(
-                "You're using deprecated way to define development-only scripts.
+            if (!static::$warningPrinted) {
+                $this->io->writeError(
+                    "<warning>You're using deprecated way to define development-only scripts.
 Please, move commands under `scripts-dev` directive into `extra` field.
-See README.md for more details."
-            );
+See https://github.com/neronmoon/scriptsdev/blob/master/README.md for more details.</warning>"
+                );
+                static::$warningPrinted = true;
+            }
             $devScripts = array_merge_recursive($devScripts, $config['scripts-dev']);
         }
 
