@@ -30,3 +30,13 @@ After installing you able to add extra.scripts-dev directive in your `composer.j
 }
 ...
 ```
+
+## Known issues
+
+- Usage of this plugin will cause minor warning of validation process.
+`composer validate` command will display something like this.
+```
+./composer.json is valid, but with a few warnings
+See https://getcomposer.org/doc/04-schema.md for details on the schema
+Description for non-existent script "test" found in "scripts-descriptions"
+```
