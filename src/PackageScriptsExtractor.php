@@ -6,7 +6,7 @@ namespace ScriptsDev;
 use Composer\IO\IOInterface;
 use Composer\Package\AliasPackage;
 use Composer\Package\CompletePackage;
-use Composer\Package\Package;
+use Composer\Package\PackageInterface;
 
 class PackageScriptsExtractor
 {
@@ -23,10 +23,10 @@ class PackageScriptsExtractor
     }
 
     /**
-     * @param Package $package
+     * @param PackageInterface $package
      * @return array
      */
-    public function extract(Package $package)
+    public function extract(PackageInterface $package)
     {
         // If we have extra.branch-alias, package will be an instanceof RootAliasPackage instead of RootPackage
         if ($package instanceof AliasPackage) {
