@@ -33,7 +33,7 @@ class PackageScriptsExtractor
             $package = $package->getAliasOf();
         }
 
-        if ($package instanceof CompletePackage && in_array('--no-dev', $_SERVER['argv'], true)) {
+        if ($package instanceof CompletePackage && isset($_SERVER['argv']) && in_array('--no-dev', $_SERVER['argv'], true)) {
             return array();
         }
 
