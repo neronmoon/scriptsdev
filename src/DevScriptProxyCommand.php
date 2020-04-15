@@ -43,6 +43,7 @@ class DevScriptProxyCommand extends BaseCommand
         $command = $this->getApplication()->find('run-script');
 
         $arrayInput = new ArrayInput($args);
-        $command->run($arrayInput, $output);
+        $statusCode = $command->run($arrayInput, $output);
+        return is_numeric($statusCode) ? (int) $statusCode : 0;
     }
 }
