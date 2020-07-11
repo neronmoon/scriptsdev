@@ -26,9 +26,10 @@
   "require": {
     "neronmoon/scriptsdev": "*@dev"
   },
+  "version": "dev-master",
   "extra": {
     "branch-alias": {
-      "dev-master": "*-dev"
+      "dev-master": "99.0.0-dev"
     },
     "scripts-dev": {
       "post-update-cmd": "echo SCRIPTSDEV RULEZ"
