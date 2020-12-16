@@ -4,7 +4,6 @@ namespace ScriptsDev;
 
 
 use Composer\IO\IOInterface;
-use Composer\Package\AliasPackage;
 use Composer\Package\CompletePackage;
 use Composer\Package\PackageInterface;
 
@@ -28,11 +27,6 @@ class PackageScriptsExtractor
      */
     public function extract(PackageInterface $package)
     {
-        // If we have extra.branch-alias, package will be an instanceof RootAliasPackage instead of RootPackage
-        if ($package instanceof AliasPackage) {
-            $package = $package->getAliasOf();
-        }
-
         if ($package instanceof CompletePackage && isset($_SERVER['argv']) && in_array('--no-dev', $_SERVER['argv'], true)) {
             return array();
         }
